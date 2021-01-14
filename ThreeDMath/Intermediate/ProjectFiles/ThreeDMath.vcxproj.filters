@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\ThreeDMath.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{439A95A2-43C0-4620-8503-864CA6E469BD}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\ThreeDMath.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\ThreeDMathEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{63B0DA5E-6613-4154-82A7-C6B47F7EF524}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\ThreeDMath">
+      <UniqueIdentifier>{824AF7D8-B28D-4886-991B-495BECCFD26F}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\ThreeDMath\ThreeDMath.Build.cs">
+      <Filter>Source\ThreeDMath</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\ThreeDMath\ThreeDMath.cpp">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ThreeDMath\ThreeDMath.h">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ThreeDMath\ThreeDMathCharacter.cpp">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ThreeDMath\ThreeDMathCharacter.h">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ThreeDMath\ThreeDMathGameMode.cpp">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ThreeDMath\ThreeDMathGameMode.h">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

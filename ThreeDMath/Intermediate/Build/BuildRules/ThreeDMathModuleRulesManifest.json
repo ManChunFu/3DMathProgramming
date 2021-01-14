@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"C:\\Users\\mandy\\source\\repos\\Unreal\\ThreeDMath\\ThreeDMath\\Source\\ThreeDMath\\ThreeDMath.Build.cs",
+		"C:\\Users\\mandy\\source\\repos\\Unreal\\ThreeDMath\\ThreeDMath\\Source\\ThreeDMath.Target.cs",
+		"C:\\Users\\mandy\\source\\repos\\Unreal\\ThreeDMath\\ThreeDMath\\Source\\ThreeDMathEditor.Target.cs"
+	],
+	"EngineVersion": "4.25.4"
+}

@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "ThreeDMath",
+			"Path": "C:\\Users\\mandy\\source\\repos\\Unreal\\ThreeDMath\\ThreeDMath\\Source\\ThreeDMath.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "ThreeDMathEditor",
+			"Path": "C:\\Users\\mandy\\source\\repos\\Unreal\\ThreeDMath\\ThreeDMath\\Source\\ThreeDMathEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

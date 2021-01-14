@@ -1,0 +1,2 @@
+C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Definitions.ThreeDMath.h
+C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Source\ThreeDMath\ThreeDMath.h
