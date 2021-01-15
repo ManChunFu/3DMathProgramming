@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\ThreeDMath.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{439A95A2-43C0-4620-8503-864CA6E469BD}</UniqueIdentifier>
+      <UniqueIdentifier>{03520656-C7D9-4D39-8313-6CE7F94A572D}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\ThreeDMath.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{63B0DA5E-6613-4154-82A7-C6B47F7EF524}</UniqueIdentifier>
+      <UniqueIdentifier>{96E5C512-3A24-49A2-8E1F-B735AD1F320D}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,8 +30,14 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\ThreeDMath">
-      <UniqueIdentifier>{824AF7D8-B28D-4886-991B-495BECCFD26F}</UniqueIdentifier>
+      <UniqueIdentifier>{EB16D49F-5F59-4560-AE6A-8229EDDA96E2}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\ThreeDMath\Orbiter.cpp">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ThreeDMath\Orbiter.h">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClInclude>
     <None Include="..\..\Source\ThreeDMath\ThreeDMath.Build.cs">
       <Filter>Source\ThreeDMath</Filter>
     </None>
@@ -51,6 +57,12 @@
       <Filter>Source\ThreeDMath</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\ThreeDMath\ThreeDMathGameMode.h">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ThreeDMath\Turnet.cpp">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ThreeDMath\Turnet.h">
       <Filter>Source\ThreeDMath</Filter>
     </ClInclude>
   </ItemGroup>
