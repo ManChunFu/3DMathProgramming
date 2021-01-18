@@ -1,16 +1,12 @@
 ﻿  Using 'git status' to determine working set for adaptive non-unity build (C:\Users\mandy\source\repos\Unreal\ThreeDMath).
-  Parsing headers for ThreeDMathEditor
-    Running UnrealHeaderTool "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\ThreeDMath.uproject" "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\ThreeDMathEditor\Development\ThreeDMathEditor.uhtmanifest" -LogCmds="loginit warning, logexit warning, logdatabase error" -Unattended -WarningsAsErrors -abslog="C:\Users\mandy\AppData\Local\UnrealBuildTool\Log_UHT.txt" -installed
-  Reflection code generated for ThreeDMathEditor in 3.9332049 seconds
   Building ThreeDMathEditor...
   Using Visual Studio 2019 14.28.29333 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).
-  Building 5 actions with 16 processes...
-    [1/5] Orbiter.cpp
-    [2/5] Orbiter.gen.cpp
-    [3/5] UE4Editor-ThreeDMath.lib
+  Building 4 actions with 16 processes...
+    [1/4] Turnet.cpp
+    [2/4] UE4Editor-ThreeDMath.lib
        Creating library C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.lib and object C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.exp
-    [4/5] UE4Editor-ThreeDMath.dll
+    [3/4] UE4Editor-ThreeDMath.dll
        Creating library C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.suppressed.lib and object C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.suppressed.exp
-    [5/5] ThreeDMathEditor.target
-  Total time in Parallel executor: 1.18 seconds
-  Total execution time: 5.54 seconds
+    [4/4] ThreeDMathEditor.target
+  Total time in Parallel executor: 1.40 seconds
+  Total execution time: 1.77 seconds

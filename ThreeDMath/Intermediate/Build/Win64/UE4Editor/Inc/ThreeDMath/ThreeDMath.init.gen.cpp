@@ -21,8 +21,8 @@ void EmptyLinkFunctionForGeneratedCodeThreeDMath_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0x747F4B7E,
-				0x4C462E7E,
+				0x604940BB,
+				0x2F62E831,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UE4CodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

@@ -31,6 +31,7 @@ void ATurnet::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	
 	if (Target)
 	{
 		FRotator BaseInterpRotation = FMath::RInterpTo(Base->GetRelativeRotation(), GetAimTargetRotation(), DeltaTime, InterpSpeed);
@@ -38,6 +39,8 @@ void ATurnet::Tick(float DeltaTime)
 
 		FRotator BarrelInterpRotation = FMath::RInterpTo(Barrel->GetRelativeRotation(), GetAimTargetElevation(), DeltaTime, InterpSpeed);
 		Barrel->SetRelativeRotation(BarrelInterpRotation);
+
+		PredictProjectilePath();
 	}
 }
 
@@ -102,5 +105,28 @@ float ATurnet::GetPredictTravelDistance(float Distance)
 
 	// Unreal unit = centemter. Unreal gravity => 980 center/sec
 	return  FMath::Square(TravelTime) * -GetWorld()->GetGravityZ() * 0.5f;
+}
+
+void ATurnet::PredictProjectilePath()
+{
+	FPredictProjectilePathParams PredictParams;
+	PredictParams.StartLocation = Barrel->GetComponentLocation();
+										// Blueprint node name = GetRotationFromXVector
+	PredictParams.LaunchVelocity = Barrel->GetComponentRotation().Vector() * BulletSpeed;
+	PredictParams.bTraceWithChannel = true;
+	PredictParams.bTraceWithCollision = true;
+	PredictParams.TraceChannel = ECollisionChannel::ECC_WorldDynamic;
+	PredictParams.DrawDebugType = EDrawDebugTrace::ForOneFrame;
+	PredictParams.SimFrequency = 30.0f;
+	PredictParams.MaxSimTime = 2.0f;
+
+	FPredictProjectilePathResult OutPreditResult;
+
+	UGameplayStatics::PredictProjectilePath(this, PredictParams, OutPreditResult);
+}
+
+void ATurnet::Shoot()
+{
+	
 }
 

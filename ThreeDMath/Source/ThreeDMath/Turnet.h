@@ -6,6 +6,17 @@
 #include "GameFramework/Actor.h"
 #include "Turnet.generated.h"
 
+UENUM(blueprintType)
+enum class EAimPoint : uint8
+{
+	EAP_Head	 UMETA(DisplayName = "Head"),
+	EAP_LeftArm  UMETA(DisplayName = "LeftArm"),
+	EAP_RightArm UMETA(DisplayName = "RightArm"),
+	EAP_LeftLeg  UMETA(DisplayName = "LeftLeg"),
+	EAP_RightLeg UMETA(DisplayName = "RightLeg"),
+	EAP_Body     UMETA(DisplayName = "Body")
+};
+
 UCLASS()
 class THREEDMATH_API ATurnet : public AActor
 {
@@ -32,6 +43,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target")
 	float TurnetHorizontalLimit;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target")
+	EAimPoint AimPoint;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Bullet")
+	TSubclassOf<AActor> Bullet;
 protected:
 	virtual void BeginPlay() override;
 
@@ -50,4 +66,8 @@ public:
 	FVector GetPredicTargetDirection_Normalized();
 
 	float GetPredictTravelDistance(float Distance);
+
+	void PredictProjectilePath();
+
+	void Shoot();
 };
