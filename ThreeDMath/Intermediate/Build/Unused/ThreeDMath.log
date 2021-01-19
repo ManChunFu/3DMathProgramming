@@ -1,12 +1,13 @@
 ﻿  Using 'git status' to determine working set for adaptive non-unity build (C:\Users\mandy\source\repos\Unreal\ThreeDMath).
+  Invalidating makefile for ThreeDMathEditor (IKSolver.cpp modified)
   Building ThreeDMathEditor...
   Using Visual Studio 2019 14.28.29333 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.28.29333) and Windows 10.0.18362.0 SDK (C:\Program Files (x86)\Windows Kits\10).
   Building 4 actions with 16 processes...
-    [1/4] Turnet.cpp
-    [2/4] UE4Editor-ThreeDMath.lib
-       Creating library C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.lib and object C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.exp
-    [3/4] UE4Editor-ThreeDMath.dll
-       Creating library C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.suppressed.lib and object C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath.suppressed.exp
+    [1/4] IKSolver.cpp
+    [2/4] UE4Editor-ThreeDMath-0001.lib
+       Creating library C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath-0001.lib and object C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath-0001.exp
+    [3/4] UE4Editor-ThreeDMath-0001.dll
+       Creating library C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath-0001.suppressed.lib and object C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath-0001.suppressed.exp
     [4/4] ThreeDMathEditor.target
-  Total time in Parallel executor: 1.40 seconds
-  Total execution time: 1.77 seconds
+  Total time in Parallel executor: 1.16 seconds
+  Total execution time: 2.75 seconds

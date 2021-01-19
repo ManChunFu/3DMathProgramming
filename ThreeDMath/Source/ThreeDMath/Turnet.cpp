@@ -59,6 +59,7 @@ FVector ATurnet::GetTargetDirection_Normalized()
 FRotator ATurnet::GetAimTargetRotation()
 {
 	FVector Direction = GetPredicTargetDirection_Normalized();
+							// Blueprint node name -> RotationFromXVector
 	FRotator AimRotation = UKismetMathLibrary::MakeRotFromX(Direction);
 	AimRotation.Yaw = FMath::ClampAngle(AimRotation.Yaw, -TurnetHorizontalLimit, TurnetHorizontalLimit);
 
@@ -95,7 +96,7 @@ FVector ATurnet::GetPredicTargetDirection_Normalized()
 	FVector PredictDistance = PredictTargetLocation - GetActorLocation();
 	FVector Direction = (GetActorRotation().UnrotateVector(PredictDistance));
 
-	Direction.Normalize();
+	Direction.GetSafeNormal(0.0001f);
 	return Direction;
 }
 

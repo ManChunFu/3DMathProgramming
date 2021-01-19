@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\ThreeDMath.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{6A53AF43-BA91-4CD0-8ED8-555E93FB160B}</UniqueIdentifier>
+      <UniqueIdentifier>{C45CE086-1554-4E7B-B31F-934022743B80}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\ThreeDMath.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{1B87B72F-8F7D-461F-85C2-1E73E4C53A21}</UniqueIdentifier>
+      <UniqueIdentifier>{8BA3CA8B-B85B-4810-AE34-C22DDBC5E8BD}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,8 +30,14 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\ThreeDMath">
-      <UniqueIdentifier>{366A3F6D-8147-43D6-85F9-B083A405BF55}</UniqueIdentifier>
+      <UniqueIdentifier>{DCEF8ACF-D08A-46CC-BB00-35633B7E0D54}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\ThreeDMath\IKSolver.cpp">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ThreeDMath\IKSolver.h">
+      <Filter>Source\ThreeDMath</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\ThreeDMath\Orbiter.cpp">
       <Filter>Source\ThreeDMath</Filter>
     </ClCompile>

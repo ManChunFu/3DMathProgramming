@@ -7,11 +7,13 @@
 /IGNORE:4221
 /NODEFAULTLIB
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\ThreeDMathEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\IKSolver.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Orbiter.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMath.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMathCharacter.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMathGameMode.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Turnet.cpp.obj"
+"C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\IKSolver.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Orbiter.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMath.init.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMathCharacter.gen.cpp.obj"

@@ -1,5 +1,5 @@
 /MANIFEST:EMBED
-/MANIFESTINPUT:"C:\Program Files\Epic Games\UE_4.25\Engine\Build\Windows\Resources\Default-Win64.manifest"
+/MANIFESTINPUT:"C:\Program Files\Epic Games\UE_4.26\Engine\Build\Windows\Resources\Default-Win64.manifest"
 /NOLOGO
 /DEBUG
 /errorReport:prompt
@@ -34,17 +34,24 @@
 /NODEFAULTLIB:"LIBCPD"
 /FUNCTIONPADMIN
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\ThreeDMathEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\IKSolver.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Orbiter.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMath.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMathCharacter.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMathGameMode.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Turnet.cpp.obj"
+"C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\IKSolver.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Orbiter.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMath.init.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMathCharacter.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\ThreeDMathGameMode.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Turnet.gen.cpp.obj"
 "C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Default.rc2.res"
+"C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\UE4Editor-Engine.lib"
+"C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\Core\UE4Editor-Core.lib"
+"C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\CoreUObject\UE4Editor-CoreUObject.lib"
+"C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\InputCore\UE4Editor-InputCore.lib"
+"C:\Program Files\Epic Games\UE_4.26\Engine\Intermediate\Build\Win64\UE4Editor\Development\HeadMountedDisplay\UE4Editor-HeadMountedDisplay.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"
@@ -69,11 +76,6 @@
 "setupapi.lib"
 "dwmapi.lib"
 "imm32.lib"
-"C:\Program Files\Epic Games\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\UE4Editor-Engine.lib"
-"C:\Program Files\Epic Games\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\Core\UE4Editor-Core.lib"
-"C:\Program Files\Epic Games\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\CoreUObject\UE4Editor-CoreUObject.lib"
-"C:\Program Files\Epic Games\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\InputCore\UE4Editor-InputCore.lib"
-"C:\Program Files\Epic Games\UE_4.25\Engine\Intermediate\Build\Win64\UE4Editor\Development\HeadMountedDisplay\UE4Editor-HeadMountedDisplay.lib"
 /OUT:"C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Binaries\Win64\UE4Editor-ThreeDMath-0002.dll"
 /IMPLIB:"C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\UE4Editor-ThreeDMath-0002.suppressed.lib"
 /PDB:"C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Binaries\Win64\UE4Editor-ThreeDMath-0002.pdb"

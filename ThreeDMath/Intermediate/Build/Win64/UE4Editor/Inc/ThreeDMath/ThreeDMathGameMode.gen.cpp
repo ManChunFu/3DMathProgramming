@@ -73,7 +73,7 @@ void EmptyLinkFunctionForGeneratedCodeThreeDMathGameMode() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AThreeDMathGameMode, 1323688879);
+	IMPLEMENT_CLASS(AThreeDMathGameMode, 3360567827);
 	template<> THREEDMATH_API UClass* StaticClass<AThreeDMathGameMode>()
 	{
 		return AThreeDMathGameMode::StaticClass();

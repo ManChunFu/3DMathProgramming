@@ -17,8 +17,8 @@ void EmptyLinkFunctionForGeneratedCodeOrbiter() {}
 	THREEDMATH_API UClass* Z_Construct_UClass_AOrbiter();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_ThreeDMath();
-	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
+	ENGINE_API UClass* Z_Construct_UClass_USceneComponent_NoRegister();
 // End Cross Module References
 	void AOrbiter::StaticRegisterNativesAOrbiter()
 	{
@@ -34,21 +34,21 @@ void EmptyLinkFunctionForGeneratedCodeOrbiter() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Offset_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Planet_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Offset;
-#if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Radius_MetaData[];
-#endif
-		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Radius;
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Planet;
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_RootSceneComponent_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_RootSceneComponent;
 #if WITH_METADATA
-		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Planet_MetaData[];
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Radius_MetaData[];
 #endif
-		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Planet;
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Radius;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Offset_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_Offset;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -64,19 +64,13 @@ void EmptyLinkFunctionForGeneratedCodeOrbiter() {}
 	};
 #endif
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset_MetaData[] = {
-		{ "Category", "Orbit" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet_MetaData[] = {
+		{ "Category", "Sphere" },
+		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Orbiter.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset = { "Offset", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AOrbiter, Offset), METADATA_PARAMS(Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset_MetaData)) };
-#if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius_MetaData[] = {
-		{ "Category", "Orbit" },
-		{ "ModuleRelativePath", "Orbiter.h" },
-	};
-#endif
-	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius = { "Radius", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AOrbiter, Radius), METADATA_PARAMS(Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius_MetaData)) };
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet = { "Planet", nullptr, (EPropertyFlags)0x001000000009000d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AOrbiter, Planet), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet_MetaData)) };
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AOrbiter_Statics::NewProp_RootSceneComponent_MetaData[] = {
 		{ "Category", "Sphere" },
@@ -86,18 +80,24 @@ void EmptyLinkFunctionForGeneratedCodeOrbiter() {}
 #endif
 	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AOrbiter_Statics::NewProp_RootSceneComponent = { "RootSceneComponent", nullptr, (EPropertyFlags)0x001000000009000d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AOrbiter, RootSceneComponent), Z_Construct_UClass_USceneComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AOrbiter_Statics::NewProp_RootSceneComponent_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AOrbiter_Statics::NewProp_RootSceneComponent_MetaData)) };
 #if WITH_METADATA
-	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet_MetaData[] = {
-		{ "Category", "Sphere" },
-		{ "EditInline", "true" },
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius_MetaData[] = {
+		{ "Category", "Orbit" },
 		{ "ModuleRelativePath", "Orbiter.h" },
 	};
 #endif
-	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet = { "Planet", nullptr, (EPropertyFlags)0x001000000009000d, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AOrbiter, Planet), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet_MetaData)) };
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius = { "Radius", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AOrbiter, Radius), METADATA_PARAMS(Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset_MetaData[] = {
+		{ "Category", "Orbit" },
+		{ "ModuleRelativePath", "Orbiter.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset = { "Offset", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AOrbiter, Offset), METADATA_PARAMS(Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AOrbiter_Statics::PropPointers[] = {
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius,
-		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AOrbiter_Statics::NewProp_RootSceneComponent,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AOrbiter_Statics::NewProp_Planet,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AOrbiter_Statics::NewProp_RootSceneComponent,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AOrbiter_Statics::NewProp_Radius,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AOrbiter_Statics::NewProp_Offset,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AOrbiter_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AOrbiter>::IsAbstract,
@@ -126,7 +126,7 @@ void EmptyLinkFunctionForGeneratedCodeOrbiter() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AOrbiter, 1067018460);
+	IMPLEMENT_CLASS(AOrbiter, 49285904);
 	template<> THREEDMATH_API UClass* StaticClass<AOrbiter>()
 	{
 		return AOrbiter::StaticClass();
