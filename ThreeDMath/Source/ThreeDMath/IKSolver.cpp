@@ -45,11 +45,11 @@ AIKSolver::AIKSolver()
 	LowerArm->SetRelativeLocation(FVector(340.0f, 60.0f, 0.0f));
 	LowerArm->SetupAttachment(RootComponent);
 
-	UpperLength = 200.0f;
-	LowerLength = 200.0f;
+	UpperLength = 60.0f;
+	LowerLength = 60.0f;
 	TargetLocation = FVector(0.0f);
-	IKOrigin - FVector(0.0f);
-
+	IKOrigin = FVector(0.0f);
+	InterpSpeed = 5.0f;
 }
 
 void AIKSolver::BeginPlay()
@@ -60,45 +60,14 @@ void AIKSolver::BeginPlay()
 
 void AIKSolver::OnConstruction(const FTransform& Transform)
 {
-	FVector NormalizedDirection = IKOffsetSolve().GetSafeNormal(0.0001f);
-
-	FVector LinearEndPoint = FindLinearEndPoint(NormalizedDirection);
-	LinearArrow->ArrowLength = LinearEndPoint.Size(); // follow the target (linear visualize)
-	
-	FVector EndPointLocation = LinearEndPoint + IKOrigin;
-	EndPoint->SetRelativeLocation(EndPointLocation);
-	
-	FRotator RotationFromXVector = UKismetMathLibrary::MakeRotFromX(NormalizedDirection); // Blueprint node name -> RotationFromXVector
-	LinearArrow->SetRelativeLocationAndRotation(IKOrigin, RotationFromXVector);
-
-	float LengthOfAdjacent = GetLengthOfAdjacent(NormalizedDirection);										
-									//Hypotenuse
-	float OppositeOfUpperLength = FMath::Sqrt(FMath::Square(UpperLength) - FMath::Square(LengthOfAdjacent));
-	VerticalMarker->ArrowLength = OppositeOfUpperLength; // Marker height
-	
-	FVector DistanceFromUpperLength = NormalizedDirection * LengthOfAdjacent; 
-	FVector UpDirection = UKismetMathLibrary::GetUpVector(RotationFromXVector);
-	VerticalMarker->SetRelativeLocationAndRotation(DistanceFromUpperLength + IKOrigin, UKismetMathLibrary::MakeRotFromX(UpDirection));
-	
-	FVector JointLocation = DistanceFromUpperLength + (UpDirection * OppositeOfUpperLength) + IKOrigin;
-	Joint->SetRelativeLocation(JointLocation); // Segment position
-
-	FRotator UpperRotation = UKismetMathLibrary::FindLookAtRotation(IKOrigin, JointLocation);
-	UpperSegment->SetRelativeLocationAndRotation(IKOrigin, UpperRotation);
-
-	FRotator LowerRotation = UKismetMathLibrary::FindLookAtRotation(JointLocation, EndPointLocation);
-	LowerSegment->SetRelativeLocationAndRotation(JointLocation, LowerRotation);
-
-	FVector UpperArmLocation =  IKOrigin + (UpperRotation.Vector() * (FVector::Distance(IKOrigin, JointLocation))); // pivot is in the middle
-	FVector LowerArmLocation = JointLocation + (UKismetMathLibrary::Conv_RotatorToVector(LowerRotation) * (FVector::Distance(JointLocation, EndPointLocation)));
-
-	UpperArm->SetRelativeLocationAndRotation(UpperArmLocation, UpperRotation);
-	LowerArm->SetRelativeLocationAndRotation(LowerArmLocation, LowerRotation);
+	Movement();
 }
 
 void AIKSolver::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	Movement();
 
 }
 
@@ -127,6 +96,57 @@ FVector AIKSolver::IKOffsetSolve()
 {
 	// IK localized position
 	return TargetLocation - IKOrigin;
+}
+
+void AIKSolver::UpdateUpperDirection(FVector Position)
+{
+	TargetLocation += Position;
+	Movement();
+}
+
+void AIKSolver::UpdateLowerDirection(FVector Position)
+{
+	IKOrigin += Position;
+	Movement();
+	SetActorLocation(IKOrigin);
+}
+
+void AIKSolver::Movement()
+{
+	FVector NormalizedDirection = IKOffsetSolve().GetSafeNormal(0.0001f);
+
+	FVector LinearEndPoint = FindLinearEndPoint(NormalizedDirection);
+	LinearArrow->ArrowLength = LinearEndPoint.Size(); // follow the target (linear visualize)
+
+	FVector EndPointLocation = LinearEndPoint + IKOrigin;
+	EndPoint->SetRelativeLocation(EndPointLocation);
+
+	FRotator RotationFromXVector = UKismetMathLibrary::MakeRotFromX(NormalizedDirection); // Blueprint node name -> RotationFromXVector
+	LinearArrow->SetRelativeLocationAndRotation(IKOrigin, RotationFromXVector);
+
+	float LengthOfAdjacent = GetLengthOfAdjacent(NormalizedDirection);
+	//Hypotenuse
+	float OppositeOfUpperLength = FMath::Sqrt(FMath::Square(UpperLength) - FMath::Square(LengthOfAdjacent));
+	VerticalMarker->ArrowLength = OppositeOfUpperLength; // Marker height
+
+	FVector DistanceFromUpperLength = NormalizedDirection * LengthOfAdjacent;
+	FVector UpDirection = UKismetMathLibrary::GetUpVector(RotationFromXVector);
+	VerticalMarker->SetRelativeLocationAndRotation(DistanceFromUpperLength + IKOrigin, UKismetMathLibrary::MakeRotFromX(UpDirection));
+
+	FVector JointLocation = DistanceFromUpperLength + (UpDirection * OppositeOfUpperLength) + IKOrigin;
+	Joint->SetRelativeLocation(JointLocation); // Segment position
+
+	FRotator UpperRotation = UKismetMathLibrary::FindLookAtRotation(IKOrigin, JointLocation);
+	UpperSegment->SetRelativeLocationAndRotation(IKOrigin, UpperRotation);
+
+	FRotator LowerRotation = UKismetMathLibrary::FindLookAtRotation(JointLocation, EndPointLocation);
+	LowerSegment->SetRelativeLocationAndRotation(JointLocation, LowerRotation);
+
+	FVector UpperArmLocation = IKOrigin + (UpperRotation.Vector() * (FVector::Distance(IKOrigin, JointLocation))); // pivot is in the middle
+	FVector LowerArmLocation = JointLocation + (UKismetMathLibrary::Conv_RotatorToVector(LowerRotation) * (FVector::Distance(JointLocation, EndPointLocation)));
+
+	UpperArm->SetRelativeLocationAndRotation(UpperArmLocation, UpperRotation);
+	LowerArm->SetRelativeLocationAndRotation(LowerArmLocation, LowerRotation);
 }
 
 

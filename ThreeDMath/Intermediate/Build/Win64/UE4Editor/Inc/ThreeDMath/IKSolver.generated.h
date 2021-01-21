@@ -8,14 +8,25 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+struct FVector;
 #ifdef THREEDMATH_IKSolver_generated_h
 #error "IKSolver.generated.h already included, missing '#pragma once' in IKSolver.h"
 #endif
 #define THREEDMATH_IKSolver_generated_h
 
 #define ThreeDMath_Source_ThreeDMath_IKSolver_h_15_SPARSE_DATA
-#define ThreeDMath_Source_ThreeDMath_IKSolver_h_15_RPC_WRAPPERS
-#define ThreeDMath_Source_ThreeDMath_IKSolver_h_15_RPC_WRAPPERS_NO_PURE_DECLS
+#define ThreeDMath_Source_ThreeDMath_IKSolver_h_15_RPC_WRAPPERS \
+ \
+	DECLARE_FUNCTION(execUpdateLowerDirection); \
+	DECLARE_FUNCTION(execUpdateUpperDirection);
+
+
+#define ThreeDMath_Source_ThreeDMath_IKSolver_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execUpdateLowerDirection); \
+	DECLARE_FUNCTION(execUpdateUpperDirection);
+
+
 #define ThreeDMath_Source_ThreeDMath_IKSolver_h_15_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAIKSolver(); \

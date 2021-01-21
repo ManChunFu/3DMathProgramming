@@ -8,6 +8,7 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+struct FVector;
 #ifdef THREEDMATH_Turnet_generated_h
 #error "Turnet.generated.h already included, missing '#pragma once' in Turnet.h"
 #endif
@@ -16,6 +17,15 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define ThreeDMath_Source_ThreeDMath_Turnet_h_23_SPARSE_DATA
 #define ThreeDMath_Source_ThreeDMath_Turnet_h_23_RPC_WRAPPERS
 #define ThreeDMath_Source_ThreeDMath_Turnet_h_23_RPC_WRAPPERS_NO_PURE_DECLS
+#define ThreeDMath_Source_ThreeDMath_Turnet_h_23_EVENT_PARMS \
+	struct Turnet_eventShoot_Parms \
+	{ \
+		FVector Velocity; \
+		float Speed; \
+	};
+
+
+#define ThreeDMath_Source_ThreeDMath_Turnet_h_23_CALLBACK_WRAPPERS
 #define ThreeDMath_Source_ThreeDMath_Turnet_h_23_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesATurnet(); \
@@ -59,13 +69,17 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ATurnet); \
 
 
 #define ThreeDMath_Source_ThreeDMath_Turnet_h_23_PRIVATE_PROPERTY_OFFSET
-#define ThreeDMath_Source_ThreeDMath_Turnet_h_20_PROLOG
+#define ThreeDMath_Source_ThreeDMath_Turnet_h_20_PROLOG \
+	ThreeDMath_Source_ThreeDMath_Turnet_h_23_EVENT_PARMS
+
+
 #define ThreeDMath_Source_ThreeDMath_Turnet_h_23_GENERATED_BODY_LEGACY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_PRIVATE_PROPERTY_OFFSET \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_SPARSE_DATA \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_RPC_WRAPPERS \
+	ThreeDMath_Source_ThreeDMath_Turnet_h_23_CALLBACK_WRAPPERS \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_INCLASS \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_STANDARD_CONSTRUCTORS \
 public: \
@@ -78,6 +92,7 @@ public: \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_PRIVATE_PROPERTY_OFFSET \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_SPARSE_DATA \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_RPC_WRAPPERS_NO_PURE_DECLS \
+	ThreeDMath_Source_ThreeDMath_Turnet_h_23_CALLBACK_WRAPPERS \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_INCLASS_NO_PURE_DECLS \
 	ThreeDMath_Source_ThreeDMath_Turnet_h_23_ENHANCED_CONSTRUCTORS \
 private: \

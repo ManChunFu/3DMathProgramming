@@ -17,12 +17,99 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 	THREEDMATH_API UClass* Z_Construct_UClass_AIKSolver();
 	ENGINE_API UClass* Z_Construct_UClass_AActor();
 	UPackage* Z_Construct_UPackage__Script_ThreeDMath();
+	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 	ENGINE_API UClass* Z_Construct_UClass_UArrowComponent_NoRegister();
 	ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
-	COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
+	ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 // End Cross Module References
+	DEFINE_FUNCTION(AIKSolver::execUpdateLowerDirection)
+	{
+		P_GET_STRUCT(FVector,Z_Param_Position);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->UpdateLowerDirection(Z_Param_Position);
+		P_NATIVE_END;
+	}
+	DEFINE_FUNCTION(AIKSolver::execUpdateUpperDirection)
+	{
+		P_GET_STRUCT(FVector,Z_Param_Position);
+		P_FINISH;
+		P_NATIVE_BEGIN;
+		P_THIS->UpdateUpperDirection(Z_Param_Position);
+		P_NATIVE_END;
+	}
 	void AIKSolver::StaticRegisterNativesAIKSolver()
 	{
+		UClass* Class = AIKSolver::StaticClass();
+		static const FNameNativePtrPair Funcs[] = {
+			{ "UpdateLowerDirection", &AIKSolver::execUpdateLowerDirection },
+			{ "UpdateUpperDirection", &AIKSolver::execUpdateUpperDirection },
+		};
+		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
+	}
+	struct Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics
+	{
+		struct IKSolver_eventUpdateLowerDirection_Parms
+		{
+			FVector Position;
+		};
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_Position;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::NewProp_Position = { "Position", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(IKSolver_eventUpdateLowerDirection_Parms, Position), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::NewProp_Position,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "IKSolver.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AIKSolver, nullptr, "UpdateLowerDirection", nullptr, nullptr, sizeof(IKSolver_eventUpdateLowerDirection_Parms), Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04840401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AIKSolver_UpdateLowerDirection()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AIKSolver_UpdateLowerDirection_Statics::FuncParams);
+		}
+		return ReturnFunction;
+	}
+	struct Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics
+	{
+		struct IKSolver_eventUpdateUpperDirection_Parms
+		{
+			FVector Position;
+		};
+		static const UE4CodeGen_Private::FStructPropertyParams NewProp_Position;
+		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[];
+#endif
+		static const UE4CodeGen_Private::FFunctionParams FuncParams;
+	};
+	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::NewProp_Position = { "Position", nullptr, (EPropertyFlags)0x0010000000000080, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(IKSolver_eventUpdateUpperDirection_Parms, Position), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(nullptr, 0) };
+	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::PropPointers[] = {
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::NewProp_Position,
+	};
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "IKSolver.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFunctionParams Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_AIKSolver, nullptr, "UpdateUpperDirection", nullptr, nullptr, sizeof(IKSolver_eventUpdateUpperDirection_Parms), Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::PropPointers), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04840401, 0, 0, METADATA_PARAMS(Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::Function_MetaDataParams, UE_ARRAY_COUNT(Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::Function_MetaDataParams)) };
+	UFunction* Z_Construct_UFunction_AIKSolver_UpdateUpperDirection()
+	{
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, Z_Construct_UFunction_AIKSolver_UpdateUpperDirection_Statics::FuncParams);
+		}
+		return ReturnFunction;
 	}
 	UClass* Z_Construct_UClass_AIKSolver_NoRegister()
 	{
@@ -31,6 +118,7 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 	struct Z_Construct_UClass_AIKSolver_Statics
 	{
 		static UObject* (*const DependentSingletons[])();
+		static const FClassFunctionLinkInfo FuncInfo[];
 #if WITH_METADATA
 		static const UE4CodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
@@ -74,6 +162,14 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_IKOrigin_MetaData[];
 #endif
 		static const UE4CodeGen_Private::FStructPropertyParams NewProp_IKOrigin;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_InterpSpeed_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FFloatPropertyParams NewProp_InterpSpeed;
+#if WITH_METADATA
+		static const UE4CodeGen_Private::FMetaDataPairParam NewProp_Target_MetaData[];
+#endif
+		static const UE4CodeGen_Private::FObjectPropertyParams NewProp_Target;
 		static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UE4CodeGen_Private::FClassParams ClassParams;
@@ -81,6 +177,10 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 	UObject* (*const Z_Construct_UClass_AIKSolver_Statics::DependentSingletons[])() = {
 		(UObject* (*)())Z_Construct_UClass_AActor,
 		(UObject* (*)())Z_Construct_UPackage__Script_ThreeDMath,
+	};
+	const FClassFunctionLinkInfo Z_Construct_UClass_AIKSolver_Statics::FuncInfo[] = {
+		{ &Z_Construct_UFunction_AIKSolver_UpdateLowerDirection, "UpdateLowerDirection" }, // 3916629892
+		{ &Z_Construct_UFunction_AIKSolver_UpdateUpperDirection, "UpdateUpperDirection" }, // 207900686
 	};
 #if WITH_METADATA
 	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIKSolver_Statics::Class_MetaDataParams[] = {
@@ -168,6 +268,20 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 	};
 #endif
 	const UE4CodeGen_Private::FStructPropertyParams Z_Construct_UClass_AIKSolver_Statics::NewProp_IKOrigin = { "IKOrigin", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AIKSolver, IKOrigin), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(Z_Construct_UClass_AIKSolver_Statics::NewProp_IKOrigin_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AIKSolver_Statics::NewProp_IKOrigin_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIKSolver_Statics::NewProp_InterpSpeed_MetaData[] = {
+		{ "Category", "IKSolver" },
+		{ "ModuleRelativePath", "IKSolver.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FFloatPropertyParams Z_Construct_UClass_AIKSolver_Statics::NewProp_InterpSpeed = { "InterpSpeed", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AIKSolver, InterpSpeed), METADATA_PARAMS(Z_Construct_UClass_AIKSolver_Statics::NewProp_InterpSpeed_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AIKSolver_Statics::NewProp_InterpSpeed_MetaData)) };
+#if WITH_METADATA
+	const UE4CodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIKSolver_Statics::NewProp_Target_MetaData[] = {
+		{ "Category", "IKSolver" },
+		{ "ModuleRelativePath", "IKSolver.h" },
+	};
+#endif
+	const UE4CodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AIKSolver_Statics::NewProp_Target = { "Target", nullptr, (EPropertyFlags)0x0010000000000005, UE4CodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(AIKSolver, Target), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(Z_Construct_UClass_AIKSolver_Statics::NewProp_Target_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_AIKSolver_Statics::NewProp_Target_MetaData)) };
 	const UE4CodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AIKSolver_Statics::PropPointers[] = {
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIKSolver_Statics::NewProp_LinearArrow,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIKSolver_Statics::NewProp_Joint,
@@ -179,6 +293,8 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIKSolver_Statics::NewProp_LowerArm,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIKSolver_Statics::NewProp_TargetLocation,
 		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIKSolver_Statics::NewProp_IKOrigin,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIKSolver_Statics::NewProp_InterpSpeed,
+		(const UE4CodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIKSolver_Statics::NewProp_Target,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AIKSolver_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AIKSolver>::IsAbstract,
@@ -188,11 +304,11 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 		"Engine",
 		&StaticCppClassTypeInfo,
 		DependentSingletons,
-		nullptr,
+		FuncInfo,
 		Z_Construct_UClass_AIKSolver_Statics::PropPointers,
 		nullptr,
 		UE_ARRAY_COUNT(DependentSingletons),
-		0,
+		UE_ARRAY_COUNT(FuncInfo),
 		UE_ARRAY_COUNT(Z_Construct_UClass_AIKSolver_Statics::PropPointers),
 		0,
 		0x009000A4u,
@@ -207,7 +323,7 @@ void EmptyLinkFunctionForGeneratedCodeIKSolver() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AIKSolver, 2978898074);
+	IMPLEMENT_CLASS(AIKSolver, 1623361496);
 	template<> THREEDMATH_API UClass* StaticClass<AIKSolver>()
 	{
 		return AIKSolver::StaticClass();

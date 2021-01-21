@@ -46,6 +46,12 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (MakeEditWidget = true))
 	FVector IKOrigin;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	float InterpSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	AActor* Target;
 protected:
 	virtual void BeginPlay() override;
 
@@ -62,4 +68,11 @@ private:
 	FVector FindLinearEndPoint(FVector NormalizedDirection);
 	float GetLengthOfAdjacent(FVector NormalizedDirection);
 	FVector IKOffsetSolve();
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateUpperDirection(FVector Position);
+
+	UFUNCTION(BlueprintCallable)
+	void UpdateLowerDirection(FVector Position);
+	void Movement();
 };

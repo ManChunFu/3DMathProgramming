@@ -25,29 +25,42 @@ class THREEDMATH_API ATurnet : public AActor
 public:	
 	ATurnet();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Arrow")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Turnet")
+	class UStaticMeshComponent* Body;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Turnet")
+	class USceneComponent* Parent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Turnet")
 	class UArrowComponent* Base;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Arrow")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Turnet")
 	UArrowComponent* Barrel;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turnet")
 	AActor* Target;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turnet")
 	float InterpSpeed;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turnet")
 	float BulletSpeed;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turnet")
 	float TurnetHorizontalLimit;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Target")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turnet")
 	EAimPoint AimPoint;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Bullet")
-	TSubclassOf<AActor> Bullet;
+	TSubclassOf<class ABullet> Bullet;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void Shoot(FVector Velocity, float Speed);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bIsShooting;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -69,5 +82,13 @@ public:
 
 	void PredictProjectilePath();
 
-	void Shoot();
+	void Move();
+
+	TArray<FVector> UpdateTargetLocaiton();
+	
+	bool GetTargetLocation();
+
+	class AThreeDMathCharacter* Player;
+	FVector TargetLocation;
+	
 };
