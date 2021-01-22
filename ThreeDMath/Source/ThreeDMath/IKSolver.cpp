@@ -12,6 +12,9 @@ AIKSolver::AIKSolver()
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 
+	//Body = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Body"));
+	//Body->SetupAttachment(RootComponent);
+
 	LinearArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("LinearArrow"));
 	LinearArrow->SetupAttachment(RootComponent);
 
@@ -37,13 +40,13 @@ AIKSolver::AIKSolver()
 	EndPoint->SetRelativeLocation(FVector(100.0f, 0.0f, 0.0f));
 	EndPoint->SetupAttachment(RootComponent);
 
-	UpperArm = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UpperArm"));
-	UpperArm->SetRelativeLocation(FVector(100.0f, 60.0f, 0.0f));
-	UpperArm->SetupAttachment(RootComponent);
+	//UpperArm = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("UpperArm"));
+	//UpperArm->SetRelativeLocation(FVector(100.0f, 60.0f, 0.0f));
+	//UpperArm->SetupAttachment(RootComponent);
 
-	LowerArm = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LowerArm"));
-	LowerArm->SetRelativeLocation(FVector(340.0f, 60.0f, 0.0f));
-	LowerArm->SetupAttachment(RootComponent);
+	//LowerArm = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LowerArm"));
+	//LowerArm->SetRelativeLocation(FVector(340.0f, 60.0f, 0.0f));
+	//LowerArm->SetupAttachment(RootComponent);
 
 	UpperLength = 60.0f;
 	LowerLength = 60.0f;
@@ -73,7 +76,7 @@ void AIKSolver::Tick(float DeltaTime)
 
 FVector AIKSolver::FindLinearEndPoint(FVector NormalizedDirection)
 {
-	float TotalUpperLowerLength = UpperLength + LowerLength;
+	float TotalUpperLowerLength = UpperLength + LowerLength; // Max length
 											// Blueprint node name => VectorLengh
 	float LengthFromTarget = FMath::Clamp(IKOffsetSolve().Size() / TotalUpperLowerLength, 0.0f, 1.0f) * TotalUpperLowerLength;
 
@@ -86,6 +89,7 @@ float AIKSolver::GetLengthOfAdjacent(FVector NormalizedDirection)
 {
 	float TotalUpperLowerLength = UpperLength + LowerLength;
 	float PercentageOfUpperLength = UpperLength / TotalUpperLowerLength;
+
 
 	float LengthOfAdjacent = FindLinearEndPoint(NormalizedDirection).Size() * PercentageOfUpperLength;// Adjacent
 
@@ -125,7 +129,7 @@ void AIKSolver::Movement()
 	LinearArrow->SetRelativeLocationAndRotation(IKOrigin, RotationFromXVector);
 
 	float LengthOfAdjacent = GetLengthOfAdjacent(NormalizedDirection);
-	//Hypotenuse
+											//Hypotenuse
 	float OppositeOfUpperLength = FMath::Sqrt(FMath::Square(UpperLength) - FMath::Square(LengthOfAdjacent));
 	VerticalMarker->ArrowLength = OppositeOfUpperLength; // Marker height
 
@@ -142,11 +146,11 @@ void AIKSolver::Movement()
 	FRotator LowerRotation = UKismetMathLibrary::FindLookAtRotation(JointLocation, EndPointLocation);
 	LowerSegment->SetRelativeLocationAndRotation(JointLocation, LowerRotation);
 
-	FVector UpperArmLocation = IKOrigin + (UpperRotation.Vector() * (FVector::Distance(IKOrigin, JointLocation))); // pivot is in the middle
-	FVector LowerArmLocation = JointLocation + (UKismetMathLibrary::Conv_RotatorToVector(LowerRotation) * (FVector::Distance(JointLocation, EndPointLocation)));
+	//FVector UpperArmLocation = IKOrigin + (UpperRotation.Vector() * (FVector::Distance(IKOrigin, JointLocation))); // pivot is in the middle
+	//FVector LowerArmLocation = JointLocation + (UKismetMathLibrary::Conv_RotatorToVector(LowerRotation) * (FVector::Distance(JointLocation, EndPointLocation)));
 
-	UpperArm->SetRelativeLocationAndRotation(UpperArmLocation, UpperRotation);
-	LowerArm->SetRelativeLocationAndRotation(LowerArmLocation, LowerRotation);
+	//UpperArm->SetRelativeLocationAndRotation(UpperArmLocation, UpperRotation);
+	//LowerArm->SetRelativeLocationAndRotation(LowerArmLocation, LowerRotation);
 }
 
 

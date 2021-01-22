@@ -17,6 +17,9 @@ class THREEDMATH_API AIKSolver : public AActor
 public:	
 	AIKSolver();
 
+	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	//UStaticMeshComponent* Body;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "IKSolver")
 	UArrowComponent* LinearArrow;
 
@@ -35,16 +38,16 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "IKSolver")
 	UStaticMeshComponent* EndPoint;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "IKSolver")
-	UStaticMeshComponent* UpperArm;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	//UStaticMeshComponent* UpperArm;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "IKSolver")
-	UStaticMeshComponent* LowerArm;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	//UStaticMeshComponent* LowerArm;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "IKSolver", Meta = (MakeEditWidget = true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "IKSolver", Meta = (MakeEditWidget = true, ClampMin = "0.0", ClampMax = "100.0"))
 	FVector TargetLocation;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (MakeEditWidget = true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (MakeEditWidget = true, ClampMin = "0.0", ClampMax = "100.0"))
 	FVector IKOrigin;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
@@ -52,6 +55,13 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
 	AActor* Target;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	float UpperLength;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	float LowerLength;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -62,8 +72,6 @@ public:
 
 private:
 	FVector IKTarget;
-	float UpperLength;
-	float LowerLength;
 
 	FVector FindLinearEndPoint(FVector NormalizedDirection);
 	float GetLengthOfAdjacent(FVector NormalizedDirection);

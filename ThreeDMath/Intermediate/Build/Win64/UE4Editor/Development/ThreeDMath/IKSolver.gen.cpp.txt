@@ -1,5 +1,0 @@
-C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Development\ThreeDMath\Definitions.ThreeDMath.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
-C:\Program Files\Epic Games\UE_4.26\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
-C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Source\ThreeDMath/IKSolver.h
-C:\Users\mandy\source\repos\Unreal\ThreeDMath\ThreeDMath\Intermediate\Build\Win64\UE4Editor\Inc\ThreeDMath\IKSolver.generated.h
