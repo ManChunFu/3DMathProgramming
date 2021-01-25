@@ -45,6 +45,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (MakeEditWidget = true))
 	FVector TargetLocation;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	int32 MovementPerFrame;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	float StopLimit;
+
 protected:
 public:	
 	UFUNCTION(BlueprintCallable)
@@ -60,9 +66,9 @@ private:
 
 	TArray<float> BonesLength;
 	TArray<UStaticMeshComponent*> Bones;
-	FVector Positions[4];
-	int32 PositionsLength = 4;
-	FRotator Rotations[4];
-
+	TArray<FVector> Positions;
+	int32 PositionsLength;
+	
 	FVector GetDirection(FVector TargetPos, FVector CurrentPos);
+	FRotator GetRotation(FVector TargetPos, FVector CurrentPos);
 };

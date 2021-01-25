@@ -52,9 +52,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Turnet")
 	EAimPoint AimPoint;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Bullet")
-	TSubclassOf<class ABullet> Bullet;
-
 	UFUNCTION(BlueprintImplementableEvent)
 	void Shoot(FVector Velocity, float Speed);
 

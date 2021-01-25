@@ -26,13 +26,13 @@ AIKMove::AIKMove()
 	LeftUpper->SetupAttachment(LeftLeg);
 
 	LeftMiddle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeftMiddle"));
-	LeftMiddle->SetupAttachment(LeftLeg);
+	LeftMiddle->SetupAttachment(LeftUpper);
 
 	LeftLower = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeftLower"));
-	LeftLower->SetupAttachment(LeftLeg);
+	LeftLower->SetupAttachment(LeftMiddle);
 
 	LeftEnd = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeftEnd"));
-	LeftEnd->SetupAttachment(LeftLeg);
+	LeftEnd->SetupAttachment(LeftLower);
 
 
 	//RightLegUpper = CreateDefaultSubobject<UArrowComponent>(TEXT("RightLegUpper"));
@@ -43,6 +43,8 @@ AIKMove::AIKMove()
 
 	TotalSegments = 3;
 	bHasInitialized = false;
+	MovementPerFrame = 10;
+	StopLimit = 0.001f;
 }
 
 
@@ -58,13 +60,16 @@ void AIKMove::InitSetup()
 	Bones.Add(LeftLower);
 	Bones.Add(LeftEnd);
 
+	Positions.Add(LeftUpper->GetRelativeLocation());
+	Positions.Add(LeftMiddle->GetRelativeLocation());
+	Positions.Add(LeftLower->GetRelativeLocation());
+	Positions.Add(LeftEnd->GetRelativeLocation());
+
+	PositionsLength = Positions.Num();
+
 	BonesLength.Add((LeftMiddle->GetRelativeLocation() - LeftUpper->GetRelativeLocation()).Size());
 	BonesLength.Add((LeftLower->GetRelativeLocation() - LeftMiddle->GetRelativeLocation()).Size());
 	BonesLength.Add((LeftEnd->GetRelativeLocation() - LeftLower->GetRelativeLocation()).Size());
-
-	UE_LOG(LogTemp, Warning, TEXT("0: %f"), BonesLength[0]);
-	UE_LOG(LogTemp, Warning, TEXT("1: %f"), BonesLength[1]);
-	UE_LOG(LogTemp, Warning, TEXT("2: %f"), BonesLength[2]);
 
 	for (uint8 index = 0; index < TotalSegments; index++)
 	{
@@ -74,17 +79,18 @@ void AIKMove::InitSetup()
 
 void AIKMove::IKSolver()
 {
-	if (Bones.Num() < 0)
+	if (!bHasInitialized)
+	{
+		InitSetup();
+		
 		return;
-
-	for (int32 index = 0; index < Bones.Num(); index++)
-	{
-		Positions[index] = (Bones[index]->GetRelativeLocation());
 	}
-	
 
-	if ((TargetLocation - Bones[0]->GetRelativeLocation()).SizeSquared() >= TotalLength * TotalLength)
+	if ((TargetLocation - Bones[0]->GetRelativeLocation()).SizeSquared() <= TotalLength * TotalLength)
+	//	if ((TargetLocation - Bones[0]->GetRelativeLocation()).Size() >= TotalLength )
+
 	{
+		// strech 
 		FVector Direction = (GetDirection(TargetLocation, Positions[0]));
 		// set everything after root (upper)
 		for (int32 index = 1; index < PositionsLength; index++)
@@ -92,10 +98,43 @@ void AIKMove::IKSolver()
 			Positions[index] = Positions[index - 1] + Direction * BonesLength[index - 1];
 		}
 	}
+	else
+	{
+		for (int32 iteration = 0; iteration < MovementPerFrame; iteration++)
+		{
+			// doesn't move the upper bone
+			for ( int32 index = PositionsLength -1;  index > 0; index--)
+			{
+				if (index == PositionsLength - 1)
+					Positions[index] = TargetLocation; // set it to target
+				else
+					Positions[index] = Positions[index + 1] + GetDirection(Positions[index], Positions[index + 1]) * BonesLength[index]; // set in line on distance
+			}
 
-	FRotator NewRotation = UKismetMathLibrary::FindLookAtRotation(TargetLocation, Positions[0]);
+			for (int32 index = 1; index < PositionsLength; index++)
+			{
+				Positions[index] = Positions[index - 1] + GetDirection(Positions[index], Positions[index - 1]) * BonesLength[index - 1];
+			}
+			// close enough?
+			if ((Positions[PositionsLength - 1] - TargetLocation).SizeSquared() < StopLimit * StopLimit)
+				break;
+		}
+	}
+
+	//for (int32 index = 1; index < PositionsLength -1; index++)
+	//{
+	//	auto Plane = FPlane({ GetDirection(Positions[index + 1], Positions[index -1]), Positions[index - 1] });
+	//	auto ProjectedTargetPoint = FVector::PointPlaneProject(TargetPoint->GetRelativeLocation(), Plane);
+	//	auto ProjectedBone = FVector::PointPlaneProject(Positions[index], Plane);
+	//	auto AngleInRadius = FMath::Acos(FVector::DotProduct(GetDirection(ProjectedBone, Positions[index - 1]), GetDirection(ProjectedTargetPoint, Positions[index - 1])));
+	//	auto AngleInDegress = FMath::RadiansToDegrees(AngleInRadius);
+	//	FVector Pos = Positions[index].RotateAngleAxis(AngleInDegress, Plane.GetNormal()) * (Positions[index] - Positions[index - 1] + Positions[index - 1]);
+	//	Positions[index] = Pos;
+	//}
+
 	for (int32 index = 0; index < PositionsLength; index++)
 	{
+		FRotator NewRotation = (index == PositionsLength -1) ? GetRotation(TargetLocation, Positions[index]) : GetRotation(Positions[index + 1], Positions[index]);
 		Bones[index]->SetRelativeLocationAndRotation(Positions[index], NewRotation);
 	}
 }
@@ -103,6 +142,11 @@ void AIKMove::IKSolver()
 FVector AIKMove::GetDirection(FVector TargetPos, FVector CurrentPos)
 {
 	return (TargetPos - CurrentPos).GetSafeNormal(0.0001f);
+}
+
+FRotator AIKMove::GetRotation(FVector TargetPos, FVector CurrentPos)
+{
+	return UKismetMathLibrary::FindLookAtRotation(TargetPos, CurrentPos);
 }
 
 
