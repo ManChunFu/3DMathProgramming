@@ -16,6 +16,10 @@ AIKSolver::AIKSolver()
 	Body->SetRelativeLocation(FVector(0.0f, 0.0f, -10.0f));
 	Body->SetupAttachment(RootComponent);
 
+#pragma region LeftFrontLimb
+
+#pragma endregion
+
 	LinearArrow = CreateDefaultSubobject<UArrowComponent>(TEXT("LinearArrow"));
 	LinearArrow->SetupAttachment(RootComponent);
 
@@ -122,6 +126,7 @@ AIKSolver::AIKSolver()
 	CurrentPointIndex = -1;
 	bIsReverse = false;
 	MoveSteps = FVector(10.0f, 10.0f, 20.0f);
+	StepScale = 20.0f;
 }
 
 void AIKSolver::BeginPlay()
@@ -173,10 +178,14 @@ void AIKSolver::MoveToNextPoint()
 
 	CurrentWaypoint = (bIsReverse)? Waypoints[--CurrentPointIndex] : Waypoints[++CurrentPointIndex];
 
-	FVector Direction = GetDirection(CurrentWaypoint->GetActorLocation(), Body->GetComponentLocation());
-	MoveSteps *= Direction;
-	MoveSteps.Z = 10.0f;
-	
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentWaypoint->GetActorLocation());
+	Direction = LookAtRotation.Vector();
+	MoveSteps.X *= Direction.X;
+	MoveSteps.Y *= Direction.Y;
+	LookAtRotation.Pitch = 0;
+	LookAtRotation.Roll = 0;
+	LookAtRotation.Yaw *= -1;
+	SetActorRotation(LookAtRotation);
 	Move();
 }
 
@@ -286,6 +295,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = LFTargetLocation;
 		}
 		LFTargetLocation = OriginTargetPos + Value;
+		//LFTargetLocation = Value;
 		MovementT(UpperSegment, LowerSegment, EndPoint, Joint, LFTargetLocation);
 		break;
 	case EMoveTypes::EMT_LeftBehind:
@@ -295,6 +305,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = LBTargetLocation;
 		}
 		LBTargetLocation = OriginTargetPos + Value;
+		//LBTargetLocation = Value;
 		MovementT(LBUpper, LBLower, LBEndPoint, LBJoint, LBTargetLocation);
 		break;
 	case EMoveTypes::EMT_Body:
@@ -304,6 +315,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = IKOrigin;
 		}
 		IKOrigin = OriginTargetPos + Value;
+		//IKOrigin = Value;
 		Body->SetRelativeLocation(BodyOffset + IKOrigin);
 		break;
 	case EMoveTypes::EMT_RightFront:
@@ -313,6 +325,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = RFTargetLocation;
 		}
 		RFTargetLocation = OriginTargetPos + Value;
+		//RFTargetLocation = Value;
 		MovementT(RUpperSegment, RLowerSegment, REndPoint, RJoint, RFTargetLocation);
 		break;
 	case EMoveTypes::EMT_RightBehind:
@@ -322,6 +335,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = RBTargetLocation;
 		}
 		RBTargetLocation = OriginTargetPos + Value;
+		//RBTargetLocation = Value;
 		MovementT(RBUpper, RBLower, RBEndPoint, RBJoint, RBTargetLocation);
 		break;
 	}

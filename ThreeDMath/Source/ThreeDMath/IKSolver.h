@@ -123,6 +123,15 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (MakeEditWidget = true))
 	FVector RBTargetLocation;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float StepScale;
+
+	UPROPERTY(BlueprintReadWrite)
+	FVector StartPosition;
+
+	UPROPERTY(BlueprintReadWrite)
+	FVector EndPosition;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
 	float UpperLength;
 
@@ -134,6 +143,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector MoveSteps;
+
+	UPROPERTY(BlueprintReadWrite)
+	FVector Direction;
+
 
 	UPROPERTY(BlueprintReadOnly)
 	FVector BodyOffset;
@@ -176,6 +189,7 @@ private:
 	uint8 TotalWaypoints;
 	uint8 CurrentPointIndex;
 	bool bIsReverse;
+
 
 	FVector GetDirection(FVector TargetPos, FVector Current);
 };
