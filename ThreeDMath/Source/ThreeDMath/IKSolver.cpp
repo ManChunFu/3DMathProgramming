@@ -141,7 +141,7 @@ void AIKSolver::BeginPlay()
 	{
 		TotalWaypoints = Waypoints.Num();
 
-		MoveToNextPoint();
+		UpdateNextPoint();
 	}
 }
 
@@ -155,19 +155,15 @@ void AIKSolver::Tick(float DeltaTime)
 
 	if (CurrentWaypoint)
 	{
-
 		float DistanceToGoal = FVector::Distance(CurrentWaypoint->GetActorLocation(), Body->GetComponentLocation());
-		UE_LOG(LogTemp, Warning, TEXT("%f"), DistanceToGoal);
-		if (DistanceToGoal < 150.0f)
-		{
-			MoveToNextPoint();
-		}
+		if (DistanceToGoal < 100.0f)
+			UpdateNextPoint();
 		else
-			Move();
+			MoveToPoint(DeltaTime);
 	}
 }
 
-void AIKSolver::MoveToNextPoint()
+void AIKSolver::UpdateNextPoint()
 {
 	if (Waypoints.Num() < 0)
 		return;
@@ -178,15 +174,7 @@ void AIKSolver::MoveToNextPoint()
 		bIsReverse = false;
 
 	CurrentWaypoint = (bIsReverse)? Waypoints[--CurrentPointIndex] : Waypoints[++CurrentPointIndex];
-
-	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentWaypoint->GetActorLocation());
-	Direction = LookAtRotation.Vector();
-
-	MoveSteps.X *= Direction.X;
-	MoveSteps.Y *= Direction.Y;
-	
-	SetActorRotation(LookAtRotation);
-	Move();
+	UE_LOG(LogTemp, Warning, TEXT("%d"), CurrentPointIndex);
 }
 
 FVector AIKSolver::FindLinearEndPoint(FVector NormalizedDirection, FVector TargetPos, FVector Origin)
@@ -339,6 +327,19 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 		MovementT(RBUpper, RBLower, RBEndPoint, RBJoint, RBTargetLocation);
 		break;
 	}
+}
+
+void AIKSolver::MoveToPoint(float DeltaTime)
+{
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentWaypoint->GetActorLocation());
+	Direction = LookAtRotation.Vector();
+	
+	MoveSteps.X = FMath::Abs(Direction.X) * 10.0f;
+
+	SetActorRotation(LookAtRotation);
+
+	Move();
+
 }
 
 

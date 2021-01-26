@@ -164,7 +164,7 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
-	void MoveToNextPoint();
+	void UpdateNextPoint();
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Move();
@@ -190,4 +190,5 @@ private:
 	uint8 CurrentPointIndex;
 	bool bIsReverse;
 
+	void MoveToPoint(float DeltaTime);
 };
