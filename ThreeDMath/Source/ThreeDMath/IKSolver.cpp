@@ -155,9 +155,10 @@ void AIKSolver::Tick(float DeltaTime)
 
 	if (CurrentWaypoint)
 	{
+
 		float DistanceToGoal = FVector::Distance(CurrentWaypoint->GetActorLocation(), Body->GetComponentLocation());
 		UE_LOG(LogTemp, Warning, TEXT("%f"), DistanceToGoal);
-		if (DistanceToGoal < 70.0f)
+		if (DistanceToGoal < 150.0f)
 		{
 			MoveToNextPoint();
 		}
@@ -180,11 +181,10 @@ void AIKSolver::MoveToNextPoint()
 
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentWaypoint->GetActorLocation());
 	Direction = LookAtRotation.Vector();
+
 	MoveSteps.X *= Direction.X;
 	MoveSteps.Y *= Direction.Y;
-	LookAtRotation.Pitch = 0;
-	LookAtRotation.Roll = 0;
-	LookAtRotation.Yaw *= -1;
+	
 	SetActorRotation(LookAtRotation);
 	Move();
 }
@@ -341,10 +341,6 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 	}
 }
 
-FVector AIKSolver::GetDirection(FVector TargetPos, FVector Current)
-{
-	TargetPos.Z = 0.0f;
-	return (TargetPos - Current).GetSafeNormal(0.0001f);
-}
+
 
 

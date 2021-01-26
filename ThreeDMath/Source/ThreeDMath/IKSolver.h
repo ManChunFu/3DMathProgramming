@@ -190,6 +190,4 @@ private:
 	uint8 CurrentPointIndex;
 	bool bIsReverse;
 
-
-	FVector GetDirection(FVector TargetPos, FVector Current);
 };
