@@ -334,9 +334,9 @@ void AIKSolver::MoveToPoint(float DeltaTime)
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentWaypoint->GetActorLocation());
 	Direction = LookAtRotation.Vector();
 	
-	MoveSteps.X = FMath::Abs(Direction.X) * 10.0f;
-
-	SetActorRotation(LookAtRotation);
+	MoveSteps.X = FMath::Abs(Direction.X) * 20.0f;
+	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), LookAtRotation, DeltaTime, 1.0f);
+	SetActorRotation(NewRotation);
 
 	Move();
 
