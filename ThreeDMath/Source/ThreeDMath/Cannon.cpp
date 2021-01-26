@@ -139,12 +139,12 @@ void ACannon::MoveForward(float Value)
 {
 	FVector Forward = CameraComp->GetForwardVector();
 	Forward.Z = 0.f;
-	RootComponent->AddWorldOffset(Forward * Value * MoveSpeed);
+	AddMovementInput(Forward * Value * MoveSpeed);
 }
 
 void ACannon::MoveRight(float Value)
 {
-	RootComponent->AddWorldOffset(CameraComp->GetRightVector() * Value * MoveSpeed);
+	AddMovementInput(CameraComp->GetRightVector() * Value * MoveSpeed);
 }
 
 void ACannon::StartMovingCamera()
