@@ -120,9 +120,9 @@ AIKSolver::AIKSolver()
 	LowerLength = 60.0f;
 	IKOrigin = FVector(0.0f, 0.0f, 30.0f);
 	LFTargetLocation = FVector(50.0f, -40.0f, 0.0f);
-	LBTargetLocation = FVector(-50.0f, -40.0f, 0.0f);
+	LBTargetLocation = FVector(-50.0f, -50.0f, 0.0f);
 	RFTargetLocation = FVector(50.0f, 40.0f, 0.0f);
-	RBTargetLocation = FVector(-50.0f, 40.0f, 0.0f);
+	RBTargetLocation = FVector(-50.0f, 50.0f, 0.0f);
 
 	BodyOffset = Body->GetRelativeLocation();
 	CurrentPointIndex = 0;
@@ -181,13 +181,8 @@ void AIKSolver::Tick(float DeltaTime)
 		if (Target)
 		{
 			float DistanceToGoal = FVector::Distance(Target->GetActorLocation(), Body->GetComponentLocation());
-			UE_LOG(LogTemp, Warning, TEXT("%f"), DistanceToGoal);
 			if (DistanceToGoal < 200.0f)
-			{
 				Stop();
-				LFTargetLocation = FVector(RFTargetLocation.X, -RFTargetLocation.Y, 0.0f);
-				AdjustLimbPosition(EMoveTypes::EMT_RightFront);
-			}
 			else
 				MoveTo(DeltaTime, Target->GetActorLocation());
 
@@ -356,15 +351,54 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 	}
 }
 
+void AIKSolver::Die()
+{
+	bIsDead = true;
+	StopImmediately();
+	int32 RandomNo = FMath::RandRange(0, 1);
+	switch (RandomNo)
+	{
+	case 0:
+		IKOrigin.Y = -50.0f;
+		AdjustLimbPosition(EMoveTypes::EMT_Body);
+		LFTargetLocation.Y = 50.0f;
+		AdjustLimbPosition(EMoveTypes::EMT_LeftFront);
+		LBTargetLocation.Y = 50.0f;
+		AdjustLimbPosition(EMoveTypes::EMT_LeftBehind);
+		break;
+	case 1:
+		IKOrigin.Y = 50.0f;
+		AdjustLimbPosition(EMoveTypes::EMT_Body);
+		Body->SetRelativeRotation(FRotator(75.0f, 0.0f, 0.0f));
+		RFTargetLocation.Y = -50.0f;
+		AdjustLimbPosition(EMoveTypes::EMT_RightFront);
+		RBTargetLocation.Y = -50.0f;
+		AdjustLimbPosition(EMoveTypes::EMT_RightBehind);
+		break;
+	default:
+		break;
+	}
+}
+
 void AIKSolver::MoveTo(float DeltaTime, FVector TargetPosition)
 {
+	if (bIsDead)
+		return;
+
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetPosition);
 	
-	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), LookAtRotation, DeltaTime, 1.0f);
+	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), LookAtRotation, DeltaTime, 0.5f);
 	SetActorRotation(NewRotation);
 
-	Move();
+	EventMove();
 
+}
+
+void AIKSolver::Stop()
+{
+	EventStop();
+	LFTargetLocation = FVector(RFTargetLocation.X, -RFTargetLocation.Y, 0.0f);
+	AdjustLimbPosition(EMoveTypes::EMT_RightFront);
 }
 
 void AIKSolver::AdjustLimbPosition(EMoveTypes MoveType)

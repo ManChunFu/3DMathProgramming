@@ -152,10 +152,13 @@ public:
 	void UpdateNextPoint();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void Move();
+	void EventMove();
 
 	UFUNCTION(BlueprintImplementableEvent)
-	void Stop();
+	void EventStop();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void StopImmediately();
 private:
 	FVector IKTarget;
 	float UpperLength;
@@ -172,6 +175,9 @@ private:
 	UFUNCTION(BlueprintCallable)
 	void UpdateInterp(EMoveTypes MoveType, FVector Value);
 
+	UFUNCTION(BlueprintCallable)
+	void Die();
+
 	FVector BodyOffset;
 	FVector ActorOffset;
 
@@ -181,8 +187,9 @@ private:
 	int32 CurrentPointIndex;
 	bool bIsReverse;
 	bool bHasReachedTarget;
+	bool bIsDead;
 
 	void MoveTo(float DeltaTime, FVector TargetPosition);
-
+	void Stop();
 	void AdjustLimbPosition(EMoveTypes MoveType);
 };
