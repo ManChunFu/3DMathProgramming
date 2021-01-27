@@ -116,17 +116,18 @@ AIKSolver::AIKSolver()
 	//LowerArm->SetRelativeLocation(FVector(340.0f, 60.0f, 0.0f));
 	//LowerArm->SetupAttachment(RootComponent);
 
-	UpperLength = 60.0f;
+	UpperLength = 40.0f;
 	LowerLength = 60.0f;
-	IKOrigin = FVector(0.0f, 30.0f, 20.0f);
-	LFTargetLocation = FVector(50.0f, 0.0f, 0.0f);
-	RFTargetLocation = FVector(-50.0f, 0.0f, 0.0f);
+	IKOrigin = FVector(0.0f, 0.0f, 30.0f);
+	LFTargetLocation = FVector(50.0f, -40.0f, 0.0f);
+	LBTargetLocation = FVector(-50.0f, -40.0f, 0.0f);
+	RFTargetLocation = FVector(50.0f, 40.0f, 0.0f);
+	RBTargetLocation = FVector(-50.0f, 40.0f, 0.0f);
 
 	BodyOffset = Body->GetRelativeLocation();
-	CurrentPointIndex = -1;
+	CurrentPointIndex = 0;
 	bIsReverse = false;
-	MoveSteps = FVector(10.0f, 10.0f, 20.0f);
-	StepScale = 20.0f;
+	MoveSteps = FVector(20.0f, 0.0f, 20.0f);
 }
 
 void AIKSolver::BeginPlay()
@@ -137,35 +138,67 @@ void AIKSolver::BeginPlay()
 	//IKOrigin = FVector(0.0f, 0.0f, 20.0f);
 	//RTargetLocation = FVector(-50.0f, 0.0f, 0.0f);
 
-	if (Waypoints.Num() > 0)
-	{
-		TotalWaypoints = Waypoints.Num();
+	ActorOffset = GetActorLocation();
 
-		UpdateNextPoint();
+	if (bUseWaypoints)
+	{
+		if (Waypoints.Num() > 0)
+		{
+			TotalWaypoints = Waypoints.Num();
+
+			UpdateNextPoint();
+		}
 	}
 }
 
 void AIKSolver::OnConstruction(const FTransform& Transform)
 {
+	AdjustLimbPosition(EMoveTypes::EMT_LeftFront);
+	AdjustLimbPosition(EMoveTypes::EMT_RightBehind);
+	AdjustLimbPosition(EMoveTypes::EMT_RightFront);
+	AdjustLimbPosition(EMoveTypes::EMT_LeftBehind);
+	AdjustLimbPosition(EMoveTypes::EMT_Body);
 }
 
 void AIKSolver::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (CurrentWaypoint)
+
+	if (bUseWaypoints)
 	{
-		float DistanceToGoal = FVector::Distance(CurrentWaypoint->GetActorLocation(), Body->GetComponentLocation());
-		if (DistanceToGoal < 100.0f)
-			UpdateNextPoint();
-		else
-			MoveToPoint(DeltaTime);
+		if (CurrentWaypoint)
+		{
+			float DistanceToGoal = FVector::Distance(CurrentWaypoint->GetActorLocation(), Body->GetComponentLocation());
+			if (DistanceToGoal < 100.0f)
+				UpdateNextPoint();
+			else
+				MoveTo(DeltaTime, CurrentWaypoint->GetActorLocation());
+		}
 	}
+	else 
+	{
+		if (Target)
+		{
+			float DistanceToGoal = FVector::Distance(Target->GetActorLocation(), Body->GetComponentLocation());
+			UE_LOG(LogTemp, Warning, TEXT("%f"), DistanceToGoal);
+			if (DistanceToGoal < 200.0f)
+			{
+				Stop();
+				LFTargetLocation = FVector(RFTargetLocation.X, -RFTargetLocation.Y, 0.0f);
+				AdjustLimbPosition(EMoveTypes::EMT_RightFront);
+			}
+			else
+				MoveTo(DeltaTime, Target->GetActorLocation());
+
+		}
+	}
+	
 }
 
 void AIKSolver::UpdateNextPoint()
 {
-	if (Waypoints.Num() < 0)
+	if (Waypoints.Num() < 1)
 		return;
 
 	if (CurrentPointIndex == TotalWaypoints - 1)
@@ -174,7 +207,6 @@ void AIKSolver::UpdateNextPoint()
 		bIsReverse = false;
 
 	CurrentWaypoint = (bIsReverse)? Waypoints[--CurrentPointIndex] : Waypoints[++CurrentPointIndex];
-	UE_LOG(LogTemp, Warning, TEXT("%d"), CurrentPointIndex);
 }
 
 FVector AIKSolver::FindLinearEndPoint(FVector NormalizedDirection, FVector TargetPos, FVector Origin)
@@ -283,8 +315,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = LFTargetLocation;
 		}
 		LFTargetLocation = OriginTargetPos + Value;
-		//LFTargetLocation = Value;
-		MovementT(UpperSegment, LowerSegment, EndPoint, Joint, LFTargetLocation);
+		AdjustLimbPosition(EMoveTypes::EMT_LeftFront);
 		break;
 	case EMoveTypes::EMT_LeftBehind:
 		if (bFirstTime)
@@ -293,8 +324,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = LBTargetLocation;
 		}
 		LBTargetLocation = OriginTargetPos + Value;
-		//LBTargetLocation = Value;
-		MovementT(LBUpper, LBLower, LBEndPoint, LBJoint, LBTargetLocation);
+		AdjustLimbPosition(EMoveTypes::EMT_LeftBehind);
 		break;
 	case EMoveTypes::EMT_Body:
 		if (bFirstTime)
@@ -303,8 +333,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = IKOrigin;
 		}
 		IKOrigin = OriginTargetPos + Value;
-		//IKOrigin = Value;
-		Body->SetRelativeLocation(BodyOffset + IKOrigin);
+		AdjustLimbPosition(EMoveTypes::EMT_Body);
 		break;
 	case EMoveTypes::EMT_RightFront:
 		if (bFirstTime)
@@ -313,8 +342,7 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = RFTargetLocation;
 		}
 		RFTargetLocation = OriginTargetPos + Value;
-		//RFTargetLocation = Value;
-		MovementT(RUpperSegment, RLowerSegment, REndPoint, RJoint, RFTargetLocation);
+		AdjustLimbPosition(EMoveTypes::EMT_RightFront);
 		break;
 	case EMoveTypes::EMT_RightBehind:
 		if (bFirstTime)
@@ -323,24 +351,46 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 			OriginTargetPos = RBTargetLocation;
 		}
 		RBTargetLocation = OriginTargetPos + Value;
-		//RBTargetLocation = Value;
-		MovementT(RBUpper, RBLower, RBEndPoint, RBJoint, RBTargetLocation);
+		AdjustLimbPosition(EMoveTypes::EMT_RightBehind);
 		break;
 	}
 }
 
-void AIKSolver::MoveToPoint(float DeltaTime)
+void AIKSolver::MoveTo(float DeltaTime, FVector TargetPosition)
 {
-	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), CurrentWaypoint->GetActorLocation());
-	Direction = LookAtRotation.Vector();
+	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetPosition);
 	
-	MoveSteps.X = FMath::Abs(Direction.X) * 20.0f;
 	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), LookAtRotation, DeltaTime, 1.0f);
 	SetActorRotation(NewRotation);
 
 	Move();
 
 }
+
+void AIKSolver::AdjustLimbPosition(EMoveTypes MoveType)
+{
+	switch (MoveType)
+	{
+	case EMoveTypes::EMT_LeftFront:
+		MovementT(UpperSegment, LowerSegment, EndPoint, Joint, LFTargetLocation);
+		break;
+	case EMoveTypes::EMT_LeftBehind:
+		MovementT(LBUpper, LBLower, LBEndPoint, LBJoint, LBTargetLocation);
+		break;
+	case EMoveTypes::EMT_Body:
+		Body->SetRelativeLocation(BodyOffset + IKOrigin);
+		break;
+	case EMoveTypes::EMT_RightFront:
+		MovementT(RUpperSegment, RLowerSegment, REndPoint, RJoint, RFTargetLocation);
+		break;
+	case EMoveTypes::EMT_RightBehind:
+		MovementT(RBUpper, RBLower, RBEndPoint, RBJoint, RBTargetLocation);
+		break;
+	default:
+		break;
+	}
+}
+
 
 
 

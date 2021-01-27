@@ -123,39 +123,24 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (MakeEditWidget = true))
 	FVector RBTargetLocation;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float StepScale;
-
-	UPROPERTY(BlueprintReadWrite)
-	FVector StartPosition;
-
-	UPROPERTY(BlueprintReadWrite)
-	FVector EndPosition;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
-	float UpperLength;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
-	float LowerLength;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bFirstTime = true;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector MoveSteps;
 
-	UPROPERTY(BlueprintReadWrite)
-	FVector Direction;
-
-
-	UPROPERTY(BlueprintReadOnly)
-	FVector BodyOffset;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver")
+	bool bUseWaypoints;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (EditCondition = "bUseWaypoints"))
 	TArray<AActor*> Waypoints;
 
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Meta = (EditCondition = "bUseWaypoints"))
 	AActor* CurrentWaypoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IKSolver", Meta = (EditCondition = "!bUseWaypoints"))
+	AActor* Target;
+
+	UPROPERTY(BlueprintReadWrite)
+	bool bFirstTime = true;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -168,27 +153,36 @@ public:
 
 	UFUNCTION(BlueprintImplementableEvent)
 	void Move();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void Stop();
 private:
 	FVector IKTarget;
+	float UpperLength;
+	float LowerLength;
 
 	FVector FindLinearEndPoint(FVector NormalizedDirection, FVector TargetPos, FVector Origin);
 	float GetLengthOfAdjacent(FVector NormalizedDirection, FVector TargetPos, FVector Origin);
 	FVector IKOffsetSolve(FVector Location, FVector Origin);
-
-	UFUNCTION(BlueprintCallable)
 	void Movement();
+
 	UFUNCTION(BlueprintCallable)
 	void MovementT(UArrowComponent* Upper, UArrowComponent* Lower, UStaticMeshComponent* End, UStaticMeshComponent* Bone, FVector TargetPos);
 
 	UFUNCTION(BlueprintCallable)
 	void UpdateInterp(EMoveTypes MoveType, FVector Value);
 
-	UPROPERTY(EditAnywhere)
+	FVector BodyOffset;
+	FVector ActorOffset;
+
+	FVector Direction;
 	FVector OriginTargetPos;
-
-	uint8 TotalWaypoints;
-	uint8 CurrentPointIndex;
+	int32 TotalWaypoints;
+	int32 CurrentPointIndex;
 	bool bIsReverse;
+	bool bHasReachedTarget;
 
-	void MoveToPoint(float DeltaTime);
+	void MoveTo(float DeltaTime, FVector TargetPosition);
+
+	void AdjustLimbPosition(EMoveTypes MoveType);
 };
