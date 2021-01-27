@@ -157,8 +157,6 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void EventStop();
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void StopImmediately();
 private:
 	FVector IKTarget;
 	float UpperLength;

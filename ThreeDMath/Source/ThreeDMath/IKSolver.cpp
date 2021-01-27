@@ -301,6 +301,9 @@ void AIKSolver::MovementT(UArrowComponent* Upper, UArrowComponent* Lower, UStati
 
 void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 {
+	if (bIsDead)
+		return;
+
 	switch (MoveType)
 	{
 	case EMoveTypes::EMT_LeftFront:
@@ -354,7 +357,6 @@ void AIKSolver::UpdateInterp(EMoveTypes MoveType, FVector Value)
 void AIKSolver::Die()
 {
 	bIsDead = true;
-	StopImmediately();
 	int32 RandomNo = FMath::RandRange(0, 1);
 	switch (RandomNo)
 	{
@@ -387,6 +389,12 @@ void AIKSolver::MoveTo(float DeltaTime, FVector TargetPosition)
 
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetPosition);
 	
+	Direction = LookAtRotation.Vector();
+	MoveSteps.X = Direction.X * 150.0f;
+	MoveSteps.X = FMath::Clamp(MoveSteps.X, -15.0f, 15.0f);
+	MoveSteps.Z = 20.0f; // LiftFeet
+	
+	LookAtRotation.Pitch = 0.0f;
 	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), LookAtRotation, DeltaTime, 0.5f);
 	SetActorRotation(NewRotation);
 
