@@ -60,20 +60,6 @@ void ACannon::Tick(float DeltaTime)
 	{
 		LaunchSpeed += DeltaTime * PowerGatheringSpeed;
 		LaunchPoint = CannonMuzzle->GetComponentLocation();
-
-#pragma region Trajectory Debug
-		for (int i = 1; i <= 30; i++)
-		{
-			float t = i / 10.f;
-			float DisplacementX = LaunchSpeed * t * FMath::Cos(LaunchAngleInRad);
-			float DisplacementY = LaunchSpeed * t * FMath::Sin(LaunchAngleInRad) - 0.5f * Gravity * t * t;
-			FVector Forward = CannonHeadMesh->GetForwardVector();
-			Forward *= DisplacementX * 100.f;
-			FVector Up = CannonHeadMesh->GetUpVector();
-			Up *= DisplacementY * 100.f;
-			DrawDebugPoint(GetWorld(), LaunchPoint + Forward + Up, 5.f, FColor::Blue);
-		}
-#pragma endregion
 	}
 }
 
