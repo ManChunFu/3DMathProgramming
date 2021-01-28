@@ -164,7 +164,6 @@ void AIKSolver::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-
 	if (bUseWaypoints)
 	{
 		if (CurrentWaypoint)
@@ -390,12 +389,13 @@ void AIKSolver::MoveTo(float DeltaTime, FVector TargetPosition)
 	FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(GetActorLocation(), TargetPosition);
 	
 	Direction = LookAtRotation.Vector();
-	MoveSteps.X = Direction.X * 150.0f;
+	MoveSteps.X = Direction.X * 150.0f; // Distance Segment
 	MoveSteps.X = FMath::Clamp(MoveSteps.X, -15.0f, 15.0f);
+	//MoveSteps.Y = FMath::Clamp(MoveSteps.Y, -15.0f, 15.0f);
 	MoveSteps.Z = 20.0f; // LiftFeet
 	
 	LookAtRotation.Pitch = 0.0f;
-	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), LookAtRotation, DeltaTime, 0.5f);
+	FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), LookAtRotation, DeltaTime, 0.0f);
 	SetActorRotation(NewRotation);
 
 	EventMove();
